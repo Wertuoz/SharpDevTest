@@ -12,5 +12,7 @@ target 'SharpDevTest' do
 	pod 'NVActivityIndicatorView'
 	pod 'NotificationBannerSwift'
 	pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => 'wip/swift4'
+	pod 'SwiftDate'
+	pod 'SwiftLint'
 
 end

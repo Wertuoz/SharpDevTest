@@ -9,35 +9,16 @@
 import Foundation
 import RxSwift
 
-class UserViewModel {
+class TransactionScreenViewModel {
     let disposeBag = DisposeBag()
 
-    let transactionSuccess = PublishSubject<Bool>()
     let isLoading: Variable<Bool> = Variable(false)
     let errorMsg: Variable<String> = Variable("")
-    var user: Variable<UserModel> = Variable(UserModel())
-    var searchResult = PublishSubject<[UserSearchModel]>()
-    let errorStep: Variable<[RegisterErrorStep]> = Variable([RegisterErrorStep]())
-    let transactionsStore = PublishSubject<[TransactionModel]>()
+
     var transactions = [TransactionModel]()
-    
-    func fetchUserInfo(silent: Bool = false) {
-        if silent == false {
-            self.isLoading.value = true
-        }
-        
-        ApiManager.shared.userInfo { [unowned self] (userData, error) in
-            self.isLoading.value = false
-            if let error = error {
-                self.errorMsg.value = error.localizedDescription
-                return
-            }
-            if userData != nil {
-                self.user.value = userData!
-            }
-        }
-    }
-    
+    let transactionsStore = PublishSubject<[TransactionModel]>()
+    var user = UserModel()
+
     func fetchTransactions() {
         self.isLoading.value = true
         
@@ -49,27 +30,30 @@ class UserViewModel {
             }
             if transactions != nil {
                 self.transactions = transactions!
-                self.transactionsStore.onNext(self.transactions)
+                self.transactionsStore.onNext(transactions!)
             }
         }
     }
     
-    func fetchFilteredUsers(filter: String) {
+    func fetchUserInfo() {
         self.isLoading.value = true
-        ApiManager.shared.filteredUserList(filter: filter) { [unowned self] (searchData, error) in
+
+        ApiManager.shared.userInfo { [unowned self] (userData, error) in
             self.isLoading.value = false
             if let error = error {
                 self.errorMsg.value = error.localizedDescription
                 return
             }
-            if searchData != nil {
-                self.searchResult.onNext(searchData!)
+            if userData != nil {
+                self.user = userData!
             }
         }
     }
     
     func createTransaction(name: String, amount: Int) {
+        self.isLoading.value = true
         ApiManager.shared.createTransaction(name: name, amount: amount) { [unowned self] (transactionData, error) in
+            self.isLoading.value = false
             if let error = error {
                 self.errorMsg.value = error.localizedDescription
                 return
@@ -77,22 +61,43 @@ class UserViewModel {
             if transactionData != nil {
                 self.transactions.append(transactionData!)
                 self.transactionsStore.onNext(self.transactions)
-                self.transactionSuccess.onNext(true)
                 self.fetchUserInfo()
             }
         }
     }
     
     func isBalanceEnough(value: Int) -> Bool {
-        if user.value.balance >= value {
+        if user.balance >= value {
             return true
         } else {
             return false
         }
     }
     
-    static func removeAuthToken() {
-        let userSettings = UserDefaults.standard
-        userSettings.removeObject(forKey: "authToken")
+    func getSorter(filter: TransactionFilter) -> (TransactionModel, TransactionModel) -> Bool {
+        switch filter {
+        case TransactionFilter.date:
+            return sortByDate
+        case TransactionFilter.name:
+            return sortByName
+        case TransactionFilter.amount:
+            return sortByAmount
+        }
+    }
+    
+    func sortByDate(transaction1: TransactionModel, transaction2: TransactionModel) -> Bool {
+        return transaction1.stringToDate() > transaction2.stringToDate()
+    }
+    
+    func sortByName(transaction1: TransactionModel, transaction2: TransactionModel) -> Bool {
+        return transaction1.userName.count > transaction2.userName.count
+    }
+    
+    func sortByAmount(transaction1: TransactionModel, transaction2: TransactionModel) -> Bool {
+        return transaction1.amount > transaction2.amount
+    }
+    
+    func refreshFilter() {
+        transactionsStore.onNext(transactions)
     }
 }

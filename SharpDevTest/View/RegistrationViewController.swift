@@ -10,8 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import NotificationBannerSwift
+import ChameleonFramework
 
-class RegistrationViewController: BaseViewController, Coordinatable {
+class RegistrationViewController: BaseAuthViewController, Coordinatable {
     var coordinator: Coordinator!
     lazy var viewController: UIViewController = {
         return self
@@ -21,9 +22,11 @@ class RegistrationViewController: BaseViewController, Coordinatable {
     @IBOutlet weak var emailTF: RoundedTextView!
     @IBOutlet weak var passwordTF: RoundedTextView!
     @IBOutlet weak var passwordConfirmTF: RoundedTextView!
-
+    @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
+    
     let viewModel = RegistrationViewModel()
     let disposeBag = DisposeBag()
+    
     var isLoading: Bool = false {
         willSet {
             if newValue {
@@ -36,6 +39,15 @@ class RegistrationViewController: BaseViewController, Coordinatable {
                 activityBtn.isEnabled = true
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView() {
+        view.backgroundColor = GradientColor(.topToBottom, frame: UIScreen.main.bounds, colors: [UIColor(hex: 0x31A343), UIColor(hex: 0xBF0942)])
     }
 
     override func setupBindings() {
@@ -65,34 +77,38 @@ class RegistrationViewController: BaseViewController, Coordinatable {
         
         keyboardHeight()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { keyboardHeight in
-                print(keyboardHeight)
+            .subscribe(onNext: { [unowned self] keyboardHeight in
                 self.moveViewForKeyboard(keyboardHeight: keyboardHeight)
             })
             .disposed(by: disposeBag)
+        
+        tapGestureRecognizer.rx.event
+            .bind(onNext: { [unowned self] recognizer in
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
     }
     
     override func setupCallbacks() {
-        viewModel.isSuccess.asObservable()
-            .bind { value in
-                print("Successfull")
+        viewModel.isSuccess
+            .observeOn(MainScheduler.instance)
+            .bind { [unowned self] value in
                 self.coordinator.performAction(step: .registerSuccess)
             }.disposed(by: disposeBag)
         
         viewModel.errorMsg.asDriver()
-            .drive(onNext: { errorMessage in
+            .drive(onNext: { [unowned self] errorMessage in
                 if errorMessage.count > 0 {
                     self.showAlertBar(text: errorMessage)
                 }
             }).disposed(by: disposeBag)
         
         viewModel.isLoading.asDriver()
-            .drive(onNext: { value in
+            .drive(onNext: { [unowned self] value in
                 self.isLoading = value
             }).disposed(by: disposeBag)
         
         viewModel.errorStep.asDriver()
-            .drive(onNext: { value in
+            .drive(onNext: { [unowned self] value in
                 if value.count > 0 {
                     self.showAlertBar(text: value[0].rawValue, style: BannerStyle.warning)
                 }

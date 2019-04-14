@@ -8,6 +8,7 @@
 
 import UIKit
 import ChameleonFramework
+import RxSwift
 
 protocol Coordinator {
     func performFlow(screen: FlowStep)
@@ -23,6 +24,9 @@ enum FlowAction {
     case loginClicked
     case registerClicked
     case registerSuccess
+    case userAuthError
+    case logoutClicked
+    case loginSuccess
 }
 
 enum FlowStep {
@@ -42,6 +46,7 @@ enum StoryBoardVCNames: String {
     case userMainScreen = "UserMainScreen"
     case registrationScreen = "RegistrationScreen"
     case loginScreen = "LoginScreen"
+    case transactionsScreen = "UserTransactionsScreen"
 }
 
 enum ScreenTitle: String {
@@ -49,6 +54,7 @@ enum ScreenTitle: String {
     case login = "Login"
     case register = "Registration"
     case userMain = "Account"
+    case userTransactions = "Transactions"
 }
 
 class AppCoordinator {
@@ -61,10 +67,15 @@ class AppCoordinator {
     init(with window: UIWindow) {
         self.window = window
         self.window?.makeKeyAndVisible()
-        
-        self.window?.backgroundColor = GradientColor(.topToBottom, frame: UIScreen.main.bounds, colors: [UIColor(hex: 0x31A343), UIColor(hex: 0xBF0942)])
+
         self.window?.rootViewController = navigation
         navigation.navigationBar.barTintColor = UIColor(hex: 0x31A343)
+        navigation.navigationBar.tintColor = UIColor(hex: 0xBF0942)
+        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(hex: 0xBF0942),
+                                                        NSAttributedString.Key.font: UIFont(name: "Menlo-Bold", size: 17)!]
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Menlo-Bold", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Menlo-Bold", size: 10)!], for: .selected)
     }
     
     func start() {
@@ -77,16 +88,14 @@ class AppCoordinator {
     }
     
     private func navigateToAuthScreen() {
-        navigation.popToRootViewController(animated: false)
         var vc: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.login, and: StoryBoardVCNames.autnMainScreen)
         vc.coordinator = self
         vc.viewController.title = ScreenTitle.authMain.rawValue
-        navigation.pushViewController(vc.viewController, animated: false)
+        navigation.initRootViewController(vc: vc.viewController)
         navigation.setNavigationBarHidden(false, animated: false)
     }
     
     private func navigateToRegistrationScreen() {
-        navigation.popToRootViewController(animated: false)
         var vc: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.login, and: StoryBoardVCNames.registrationScreen)
         vc.coordinator = self
         vc.viewController.title = ScreenTitle.register.rawValue
@@ -95,7 +104,6 @@ class AppCoordinator {
     }
     
     private func navigateToLoginScreen() {
-        navigation.popToRootViewController(animated: false)
         var vc: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.login, and: StoryBoardVCNames.loginScreen)
         vc.coordinator = self
         vc.viewController.title = ScreenTitle.login.rawValue
@@ -104,11 +112,27 @@ class AppCoordinator {
     }
     
     private func navigateToUserScreen() {
-        navigation.popToRootViewController(animated: false)
-        var vc: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.account, and: StoryBoardVCNames.userMainScreen)
-        vc.coordinator = self
-        vc.viewController.title = ScreenTitle.userMain.rawValue
-        navigation.pushViewController(vc.viewController, animated: true)
+        
+        var vcUserMain: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.account, and: StoryBoardVCNames.userMainScreen)
+        vcUserMain.coordinator = self
+        vcUserMain.viewController.title = ScreenTitle.userMain.rawValue
+
+        var vcUserTransactions: Coordinatable = UIStoryboard.instantiateController(for: StoryboardName.account, and: StoryBoardVCNames.transactionsScreen)
+        vcUserTransactions.coordinator = self
+        vcUserTransactions.viewController.title = ScreenTitle.userTransactions.rawValue
+        
+        let tabBarController = UserTabBarViewController(nibName: nil, bundle: nil)
+        tabBarController.controllers = [vcUserMain, vcUserTransactions]
+        tabBarController.coordinator = self
+        
+        let tab1Item = UITabBarItem(title: "Account", image: UIImage(named: "usrIcon"), tag: 1)
+        let tab2Item = UITabBarItem(title: "Transactions", image: UIImage(named: "moneyIcon"), tag: 2)
+        tabBarController.tabs = [tab1Item, tab2Item]
+        tabBarController.tabBar.tintColor = UIColor(hex: 0xBF0942)
+        tabBarController.tabBar.barTintColor = UIColor(hex: 0x31A343)
+        tabBarController.tabBar.unselectedItemTintColor = UIColor.black
+        
+        navigation.initRootViewController(vc: tabBarController)
         navigation.setNavigationBarHidden(false, animated: false)
     }
 }
@@ -135,13 +159,13 @@ extension AppCoordinator: Coordinator {
             self.performFlow(screen: .navigateToRegistrationScreen)
         case .registerSuccess:
             self.performFlow(screen: .navigateToUserScreen)
+        case .userAuthError:
+            self.performFlow(screen: .navigateToAuthScreen)
+        case .logoutClicked:
+            UserViewModel.removeAuthToken()
+            self.performFlow(screen: .navigateToAuthScreen)
+        case .loginSuccess:
+            self.performFlow(screen: .navigateToUserScreen)
         }
-    }
-}
-
-extension UIStoryboard {
-    class func instantiateController<T>(for storyboard: StoryboardName, and screen : StoryBoardVCNames) -> T {
-        let storyboard = UIStoryboard.init(name: storyboard.rawValue, bundle: nil);
-        return storyboard.instantiateViewController(withIdentifier: screen.rawValue) as! T
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import ChameleonFramework
 
 class AuthMainScreenViewController: UIViewController, Coordinatable {
     var coordinator: Coordinator!
@@ -23,7 +24,12 @@ class AuthMainScreenViewController: UIViewController, Coordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupBindings()
+    }
+    
+    func setupView() {
+        view.backgroundColor = GradientColor(.topToBottom, frame: UIScreen.main.bounds, colors: [UIColor(hex: 0x31A343), UIColor(hex: 0xBF0942)])
     }
     
     func setupBindings() {

@@ -14,7 +14,7 @@
 		251A2660225B68AE00358FC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A265F225B68AE00358FC6 /* LoginViewController.swift */; };
 		251A2662225B69CF00358FC6 /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A2661225B69CF00358FC6 /* LoginScreenViewModel.swift */; };
 		251A2664225B6A0E00358FC6 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A2663225B6A0E00358FC6 /* LoginModel.swift */; };
-		251A2666225B7A4800358FC6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A2665225B7A4800358FC6 /* BaseViewController.swift */; };
+		251A2666225B7A4800358FC6 /* BaseAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A2665225B7A4800358FC6 /* BaseAuthViewController.swift */; };
 		251A2668225BBAD900358FC6 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 251A2667225BBAD900358FC6 /* Account.storyboard */; };
 		251A266B225BBB6A00358FC6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A266A225BBB6A00358FC6 /* AppCoordinator.swift */; };
 		251A266E225BC1A000358FC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A266D225BC1A000358FC6 /* Constants.swift */; };
@@ -26,12 +26,23 @@
 		25256B4E2256195C0055BF11 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25256B4D2256195C0055BF11 /* ApiManager.swift */; };
 		25256B5322562DC60055BF11 /* UserAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25256B5222562DC60055BF11 /* UserAuthData.swift */; };
 		25256B5622565CCC0055BF11 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25256B5522565CCC0055BF11 /* RoundedView.swift */; };
+		2537C8D822613AC500A552C4 /* TransactionScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537C8D722613AC500A552C4 /* TransactionScreenViewModel.swift */; };
+		2537C8DA22637D5C00A552C4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537C8D922637D5C00A552C4 /* Extensions.swift */; };
+		256DE35B2261215900B6EF49 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256DE35A2261215900B6EF49 /* TransactionCell.swift */; };
 		25B29D2D22578F4D00A2681B /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D2C22578F4D00A2681B /* RegisterModel.swift */; };
 		25B29D3022578FE400A2681B /* ValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D2F22578FE400A2681B /* ValidationViewModel.swift */; };
 		25B29D322257907E00A2681B /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D312257907E00A2681B /* PasswordViewModel.swift */; };
 		25B29D342257925A00A2681B /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D332257925A00A2681B /* EmailViewModel.swift */; };
 		25B29D36225793AC00A2681B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D35225793AC00A2681B /* LoginViewModel.swift */; };
 		25B29D382257947000A2681B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B29D372257947000A2681B /* RegistrationViewModel.swift */; };
+		25B3E388225F6A0D00F51C9D /* UserSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E387225F6A0D00F51C9D /* UserSearchModel.swift */; };
+		25B3E38B225F7DE700F51C9D /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E38A225F7DE700F51C9D /* SearchCell.swift */; };
+		25B3E38D225FAC0B00F51C9D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E38C225FAC0B00F51C9D /* BaseViewController.swift */; };
+		25B3E38F225FE9A200F51C9D /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E38E225FE9A200F51C9D /* TransactionModel.swift */; };
+		25B3E391225FF1CF00F51C9D /* TransactionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E390225FF1CF00F51C9D /* TransactionListModel.swift */; };
+		25B3E393225FF34900F51C9D /* TransactionListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E392225FF34900F51C9D /* TransactionListItemModel.swift */; };
+		25B3E3952260E87400F51C9D /* UserTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E3942260E87400F51C9D /* UserTabBarViewController.swift */; };
+		25B3E3972260EC1200F51C9D /* UserTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3E3962260EC1100F51C9D /* UserTransactionsViewController.swift */; };
 		ADD43BDBCB1EC0E123F38017 /* Pods_SharpDevTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BEDE485A015A00F44F0CCF /* Pods_SharpDevTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +55,7 @@
 		251A265F225B68AE00358FC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		251A2661225B69CF00358FC6 /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
 		251A2663225B6A0E00358FC6 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		251A2665225B7A4800358FC6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		251A2665225B7A4800358FC6 /* BaseAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAuthViewController.swift; sourceTree = "<group>"; };
 		251A2667225BBAD900358FC6 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		251A266A225BBB6A00358FC6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		251A266D225BC1A000358FC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -58,12 +69,23 @@
 		25256B4D2256195C0055BF11 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		25256B5222562DC60055BF11 /* UserAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthData.swift; sourceTree = "<group>"; };
 		25256B5522565CCC0055BF11 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		2537C8D722613AC500A552C4 /* TransactionScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScreenViewModel.swift; sourceTree = "<group>"; };
+		2537C8D922637D5C00A552C4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		256DE35A2261215900B6EF49 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		25B29D2C22578F4D00A2681B /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		25B29D2F22578FE400A2681B /* ValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewModel.swift; sourceTree = "<group>"; };
 		25B29D312257907E00A2681B /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		25B29D332257925A00A2681B /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
 		25B29D35225793AC00A2681B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		25B29D372257947000A2681B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		25B3E387225F6A0D00F51C9D /* UserSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchModel.swift; sourceTree = "<group>"; };
+		25B3E38A225F7DE700F51C9D /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		25B3E38C225FAC0B00F51C9D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		25B3E38E225FE9A200F51C9D /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		25B3E390225FF1CF00F51C9D /* TransactionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListModel.swift; sourceTree = "<group>"; };
+		25B3E392225FF34900F51C9D /* TransactionListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemModel.swift; sourceTree = "<group>"; };
+		25B3E3942260E87400F51C9D /* UserTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabBarViewController.swift; sourceTree = "<group>"; };
+		25B3E3962260EC1100F51C9D /* UserTransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransactionsViewController.swift; sourceTree = "<group>"; };
 		91BEDE485A015A00F44F0CCF /* Pods_SharpDevTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SharpDevTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7E947076C5F9434306F3D6 /* Pods-SharpDevTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SharpDevTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SharpDevTest/Pods-SharpDevTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				251A266D225BC1A000358FC6 /* Constants.swift */,
+				2537C8D922637D5C00A552C4 /* Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -117,17 +140,14 @@
 		25256B3A225619450055BF11 /* SharpDevTest */ = {
 			isa = PBXGroup;
 			children = (
+				25256B5022562D9E0055BF11 /* Model */,
+				25256B5422565CB40055BF11 /* View */,
+				25B29D2E22578FCE00A2681B /* ViewModel */,
 				251A266C225BC19500358FC6 /* Common */,
 				251A2669225BBB5A00358FC6 /* Coordinator */,
-				25B29D2E22578FCE00A2681B /* ViewModel */,
-				25256B5022562D9E0055BF11 /* Model */,
 				25256B4F22562D920055BF11 /* Api */,
 				25256B3B225619450055BF11 /* AppDelegate.swift */,
-				25256B5422565CB40055BF11 /* View */,
 				25256B42225619460055BF11 /* Assets.xcassets */,
-				25256B44225619460055BF11 /* LaunchScreen.storyboard */,
-				25256B3F225619450055BF11 /* Login.storyboard */,
-				251A2667225BBAD900358FC6 /* Account.storyboard */,
 				25256B47225619460055BF11 /* Info.plist */,
 			);
 			path = SharpDevTest;
@@ -148,6 +168,10 @@
 				25B29D2C22578F4D00A2681B /* RegisterModel.swift */,
 				251A2663225B6A0E00358FC6 /* LoginModel.swift */,
 				250E3CAB225DE2C900FC9E68 /* UserModel.swift */,
+				25B3E387225F6A0D00F51C9D /* UserSearchModel.swift */,
+				25B3E38E225FE9A200F51C9D /* TransactionModel.swift */,
+				25B3E390225FF1CF00F51C9D /* TransactionListModel.swift */,
+				25B3E392225FF34900F51C9D /* TransactionListItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -155,12 +179,19 @@
 		25256B5422565CB40055BF11 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				25256B44225619460055BF11 /* LaunchScreen.storyboard */,
+				25256B3F225619450055BF11 /* Login.storyboard */,
+				251A2667225BBAD900358FC6 /* Account.storyboard */,
+				25B3E389225F7DC800F51C9D /* Cells */,
+				25B3E38C225FAC0B00F51C9D /* BaseViewController.swift */,
+				251A2665225B7A4800358FC6 /* BaseAuthViewController.swift */,
 				25256B3D225619450055BF11 /* RegistrationViewController.swift */,
 				25256B5522565CCC0055BF11 /* RoundedView.swift */,
 				251A265F225B68AE00358FC6 /* LoginViewController.swift */,
-				251A2665225B7A4800358FC6 /* BaseViewController.swift */,
 				250E3CA9225D40E000FC9E68 /* AuthMainScreenViewController.swift */,
 				250E3CAF225DEA3F00FC9E68 /* UserMainScreenViewController.swift */,
+				25B3E3942260E87400F51C9D /* UserTabBarViewController.swift */,
+				25B3E3962260EC1100F51C9D /* UserTransactionsViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -175,8 +206,18 @@
 				25B29D372257947000A2681B /* RegistrationViewModel.swift */,
 				251A2661225B69CF00358FC6 /* LoginScreenViewModel.swift */,
 				250E3CAD225DE78300FC9E68 /* UserViewModel.swift */,
+				2537C8D722613AC500A552C4 /* TransactionScreenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		25B3E389225F7DC800F51C9D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				25B3E38A225F7DE700F51C9D /* SearchCell.swift */,
+				256DE35A2261215900B6EF49 /* TransactionCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		5C8FC4A698735EE9C620D35D /* Pods */ = {
@@ -306,6 +347,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxFlow/RxFlow.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -320,6 +362,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFlow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -333,26 +376,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				256DE35B2261215900B6EF49 /* TransactionCell.swift in Sources */,
 				251A2662225B69CF00358FC6 /* LoginScreenViewModel.swift in Sources */,
 				250E3CAA225D40E000FC9E68 /* AuthMainScreenViewController.swift in Sources */,
 				251A266E225BC1A000358FC6 /* Constants.swift in Sources */,
 				250E3CAC225DE2C900FC9E68 /* UserModel.swift in Sources */,
 				251A2664225B6A0E00358FC6 /* LoginModel.swift in Sources */,
+				25B3E38D225FAC0B00F51C9D /* BaseViewController.swift in Sources */,
 				251A2660225B68AE00358FC6 /* LoginViewController.swift in Sources */,
 				25256B5322562DC60055BF11 /* UserAuthData.swift in Sources */,
+				25B3E391225FF1CF00F51C9D /* TransactionListModel.swift in Sources */,
+				25B3E393225FF34900F51C9D /* TransactionListItemModel.swift in Sources */,
 				251A266B225BBB6A00358FC6 /* AppCoordinator.swift in Sources */,
 				25B29D382257947000A2681B /* RegistrationViewModel.swift in Sources */,
-				251A2666225B7A4800358FC6 /* BaseViewController.swift in Sources */,
+				251A2666225B7A4800358FC6 /* BaseAuthViewController.swift in Sources */,
 				25B29D322257907E00A2681B /* PasswordViewModel.swift in Sources */,
+				25B3E3972260EC1200F51C9D /* UserTransactionsViewController.swift in Sources */,
 				25B29D3022578FE400A2681B /* ValidationViewModel.swift in Sources */,
 				25B29D2D22578F4D00A2681B /* RegisterModel.swift in Sources */,
 				25B29D342257925A00A2681B /* EmailViewModel.swift in Sources */,
 				25256B3E225619450055BF11 /* RegistrationViewController.swift in Sources */,
 				25256B4E2256195C0055BF11 /* ApiManager.swift in Sources */,
 				250E3CB0225DEA3F00FC9E68 /* UserMainScreenViewController.swift in Sources */,
+				2537C8D822613AC500A552C4 /* TransactionScreenViewModel.swift in Sources */,
 				25256B5622565CCC0055BF11 /* RoundedView.swift in Sources */,
+				25B3E38B225F7DE700F51C9D /* SearchCell.swift in Sources */,
+				25B3E38F225FE9A200F51C9D /* TransactionModel.swift in Sources */,
+				25B3E3952260E87400F51C9D /* UserTabBarViewController.swift in Sources */,
+				2537C8DA22637D5C00A552C4 /* Extensions.swift in Sources */,
 				250E3CAE225DE78300FC9E68 /* UserViewModel.swift in Sources */,
 				25B29D36225793AC00A2681B /* LoginViewModel.swift in Sources */,
+				25B3E388225F6A0D00F51C9D /* UserSearchModel.swift in Sources */,
 				25256B3C225619450055BF11 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

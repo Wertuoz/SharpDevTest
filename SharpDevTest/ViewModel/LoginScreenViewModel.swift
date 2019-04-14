@@ -21,7 +21,7 @@ class LoginScreenViewModel {
     var emailViewModel = EmailViewModel()
     var passwordViewModel = PasswordViewModel()
     
-    let isSuccess: Variable<Bool> = Variable(false)
+    let isSuccess = PublishSubject<Bool>()
     let isLoading: Variable<Bool> = Variable(false)
     let errorMsg: Variable<String> = Variable("")
     let errorStep: Variable<[LoginErrorStep]> = Variable([LoginErrorStep]())
@@ -46,24 +46,19 @@ class LoginScreenViewModel {
     
     func loginUser() {
         model.email = emailViewModel.data.value
-        model.password = passwordViewModel.data.value
+        model.password = passwordViewModel.data.value.md5Value
         
         self.isLoading.value = true
         
-        ApiManager.shared.loginUser(email: model.email, password: model.password) { [weak self] (authData, error) in
+        ApiManager.shared.loginUser(email: model.email, password: model.password) { [unowned self] (authData, error) in
+             self.isLoading.value = false
             if let error = error {
-                self?.isLoading.value = false
-                self?.isSuccess.value = false
-                self?.errorMsg.value = error.localizedDescription
+                self.errorMsg.value = error.localizedDescription
                 return
             }
             if authData != nil {
-                self?.saveToken(authToken: authData!.tokenId)
-                self?.isLoading.value = false
-                self?.isSuccess.value = true
-            } else {
-                self?.isLoading.value = false
-                self?.isSuccess.value = false
+                self.saveToken(authToken: authData!.tokenId)
+                self.isSuccess.onNext(true)
             }
         }
     }
